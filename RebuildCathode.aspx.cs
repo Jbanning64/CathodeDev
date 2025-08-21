@@ -268,7 +268,7 @@ namespace CathodeWeb
             conn.Open();
             string strSQLCommand = query;
             SqlCommand command = new SqlCommand(strSQLCommand, conn);
-            SqlDataReader reader = command.ExecuteReader();
+            Microsoft.Data.SqlClient.SqlDataReader reader = command.ExecuteReader();
 
             if (reader.HasRows)
             {
