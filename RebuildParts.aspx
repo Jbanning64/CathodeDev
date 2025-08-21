@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="RebuildParts.aspx.cs" Inherits="CathodeWeb.RebuildParts" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-     <asp:SqlDataSource ID="sqlCathode" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="
+     <asp:SqlDataSource ID="sqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="
  SELECT c.Cathode_Number, MAX(c.id) as id
 FROM vwCathodeStatus c
 LEFT OUTER JOIN parthistory p
@@ -19,7 +19,7 @@ ORDER BY COUNT(p.history_id) DESC, c.Cathode_Number
      </SelectParameters>
 
  </asp:SqlDataSource>
-     <asp:SqlDataSource ID="SqlParts" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.id, p.description, h.partcount
+     <asp:SqlDataSource ID="SqlParts" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.id, p.description, h.partcount
         FROM parthistory h
         INNER JOIN parts p
         ON p.id = h.parts_id
@@ -32,7 +32,7 @@ ORDER BY COUNT(p.history_id) DESC, c.Cathode_Number
         </SelectParameters>
 
      </asp:SqlDataSource>
-     <asp:SqlDataSource ID="SqlPartList" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT id, description
+     <asp:SqlDataSource ID="SqlPartList" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT id, description
             FROM parts
             ORDER BY description">
      </asp:SqlDataSource>

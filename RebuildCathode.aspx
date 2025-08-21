@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="RebuildCathode.aspx.cs" Inherits="CathodeWeb.RebuildCathode" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-     <asp:SqlDataSource ID="sqlCathode" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT c.serialnumber as Cathode_Number, 0 as id, 0 as partcount
+     <asp:SqlDataSource ID="sqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT c.serialnumber as Cathode_Number, 0 as id, 0 as partcount
 FROM cathode c
 WHERE c.serialnumber NOT IN (SELECT cathode_number FROM vwCathodeStatus WHERE furnace = @FurnaceId)
 AND c.furnace = @FurnaceId
@@ -23,7 +23,7 @@ ORDER BY partcount desc, Cathode_Number asc">
 
      </asp:SqlDataSource>
 
-    <asp:SqlDataSource ID="SqlParts" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.id, p.description, h.partcount
+    <asp:SqlDataSource ID="SqlParts" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.id, p.description, h.partcount
        FROM parthistory h
        INNER JOIN parts p
        ON p.id = h.parts_id

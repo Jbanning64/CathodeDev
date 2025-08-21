@@ -6,7 +6,7 @@
         <section class="row" aria-labelledby="pageTitle">
             <h1 id="pageTitle">Remove Cathode</h1>
         </section>
-        <asp:SqlDataSource ID="SqlGuns" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT Gun_Number, Cathode, gun_id
+        <asp:SqlDataSource ID="SqlGuns" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT Gun_Number, Cathode, gun_id
 FROM vwEBCathodesInUse
 WHERE furnace = @FurnaceID ORDER BY Gun_Number">
              <SelectParameters>

@@ -4,14 +4,14 @@
     <main>
         <section class="row" aria-labelledby="pageTitle">
             <h1 id="pageTitle">Cathode/Gun History</h1>
-                <asp:SqlDataSource ID="SqlGuns" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT id, 'Gun #' + CAST(number as varchar(2)) as GunNumber
+                <asp:SqlDataSource ID="SqlGuns" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT id, 'Gun #' + CAST(number as varchar(2)) as GunNumber
                             FROM ebguns
                             WHERE furnace = @furnaceid">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ddlFurnace" DefaultValue="1" Name="furnaceid" PropertyName="SelectedValue" />
                 </SelectParameters>
                 </asp:SqlDataSource>
-                <asp:SqlDataSource ID="SqlGunHistory" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number, 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
+                <asp:SqlDataSource ID="SqlGunHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number, 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
                         FROM history h
                         INNER JOIN installdata i
                         ON i.history_id = h.id
@@ -27,14 +27,14 @@
                         <asp:ControlParameter ControlID="ddlGun" DefaultValue="1" Name="gunid" PropertyName="SelectedValue" />
                     </SelectParameters>
                 </asp:SqlDataSource>
-             <asp:SqlDataSource ID="SqlCathode" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT serialnumber as Cathode
+             <asp:SqlDataSource ID="SqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT serialnumber as Cathode
                             FROM cathode
                             WHERE Furnace = @FurnaceID ORDER BY serialnumber">
                  <SelectParameters>
                      <asp:ControlParameter ControlID="ddlFurnace" DefaultValue="1" Name="furnaceid" PropertyName="SelectedValue" />
                  </SelectParameters>
                  </asp:SqlDataSource>
-             <asp:SqlDataSource ID="SqlCathodeHistory" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number, 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
+             <asp:SqlDataSource ID="SqlCathodeHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number, 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
 FROM history h
 INNER JOIN installdata i
 ON i.history_id = h.id

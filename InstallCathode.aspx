@@ -2,7 +2,7 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-     <asp:SqlDataSource ID="sqlCathode" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="
+     <asp:SqlDataSource ID="sqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="
          SELECT Cathode_Number, id
          FROM vwCathodeStatus 
          WHERE status_id = 4
@@ -18,7 +18,7 @@
      </asp:SqlDataSource>
 
    
-     <asp:SqlDataSource ID="SqlGuns" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT id, GunNumber
+     <asp:SqlDataSource ID="SqlGuns" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT id, GunNumber
 FROM vwEBGunNoCathode
 WHERE furnace = @FurnaceID
 ORDER BY GunNumber">

@@ -7,7 +7,7 @@
             <h1 id="pageTitle">Campaign Usage Estimator</h1>
         </section>
 
-        <asp:SqlDataSource ID="SqlHVEst" runat="server" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT s.cathode_number AS Cathode, 'Gun #' + CAST(e.number AS varchar(1)) AS Gun_Number, i.installtime AS CathodeInstall_Time, 
+        <asp:SqlDataSource ID="SqlHVEst" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT s.cathode_number AS Cathode, 'Gun #' + CAST(e.number AS varchar(1)) AS Gun_Number, i.installtime AS CathodeInstall_Time, 
 CASE e.number
 WHEN 1 THEN (SELECT TOP 1 Gun1Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 2 THEN (SELECT TOP 1 Gun2Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
