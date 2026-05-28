@@ -1,19 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="RebuildCathode.aspx.cs" Inherits="CathodeWeb.RebuildCathode" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-     <asp:SqlDataSource ID="sqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT c.serialnumber as Cathode_Number, 0 as id, 0 as partcount
-FROM cathode c
-WHERE c.serialnumber NOT IN (SELECT cathode_number FROM vwCathodeStatus WHERE furnace = @FurnaceId)
-AND c.furnace = @FurnaceId
-UNION
-SELECT s.Cathode_Number, s.id, COUNT(parts_id) as partcount
-FROM vwCathodeStatus s
-LEFT OUTER JOIN parthistory 
-ON history_id = s.id
-WHERE status_id = 3
-AND furnace = @FurnaceId
-GROUP BY s.cathode_number, s.id
-ORDER BY partcount desc, Cathode_Number asc">
+     <asp:SqlDataSource ID="sqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT serialnumber AS Cathode_Number, 0 AS id, 0 AS partcount FROM cathode AS c WHERE (serialnumber NOT IN (SELECT cathode_number FROM vwCathodeStatus WHERE (furnace = @FurnaceId))) AND (furnace = @FurnaceId) AND (active = 1) UNION SELECT s.cathode_number, s.id, COUNT(parthistory.parts_id) AS partcount FROM vwCathodeStatus AS s LEFT OUTER JOIN parthistory ON parthistory.history_id = s.id WHERE (s.status_id = 3) AND (s.furnace = @FurnaceId) GROUP BY s.cathode_number, s.id ORDER BY partcount DESC, Cathode_Number">
          <SelectParameters>
          <asp:ControlParameter ControlID="ddlFurnace"
              PropertyName="SelectedValue"
