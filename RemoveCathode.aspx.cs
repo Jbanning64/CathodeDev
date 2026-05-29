@@ -20,24 +20,46 @@ namespace CathodeWeb
 
         protected void ddlFurnace_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ddlGuns.DataBind();
         }
 
         protected void ddlGuns_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtCathode.Text = ddlGuns.SelectedValue.ToString();
-            txtRemove.Text = string.Empty;
-            txtHVTimer.Text = string.Empty;     
-            txtTotalHV.Text = string.Empty;
-            string theID = ddlGuns.SelectedItem.Text;
-            txtGunID.Text = GetGunID(theID).ToString();
+            if (ddlGuns.Items.Count > 0)
+            {
+                txtCathode.Text = ddlGuns.SelectedValue.ToString();
+                txtRemove.Text = string.Empty;
+                txtHVTimer.Text = string.Empty;
+                txtTotalHV.Text = string.Empty;
+                string theID = ddlGuns.SelectedItem.Text;
+                txtGunID.Text = GetGunID(theID).ToString();
+            }
+            else
+            {
+                txtCathode.Text = string.Empty;
+                txtRemove.Text = string.Empty;
+                txtHVTimer.Text = string.Empty;
+                txtTotalHV.Text = string.Empty;
+            }
+
         }
 
         protected void ddlGuns_DataBound(object sender, EventArgs e)
         {
-            txtCathode.Text = ddlGuns.SelectedValue.ToString();
-            string theID = ddlGuns.SelectedItem.Text;
-            txtGunID.Text = GetGunID(theID).ToString();
+            if (ddlGuns.Items.Count > 0)
+            {
+                txtCathode.Text = ddlGuns.SelectedValue.ToString();
+                string theID = ddlGuns.SelectedItem.Text;
+                txtGunID.Text = GetGunID(theID).ToString();
+            }
+            else
+            {
+                txtCathode.Text = string.Empty;
+                txtRemove.Text = string.Empty;
+                txtHVTimer.Text = string.Empty;
+                txtTotalHV.Text = string.Empty;
+            }
+
         }
 
         protected void btnRemove_Click(object sender, EventArgs e)

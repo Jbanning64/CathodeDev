@@ -94,7 +94,8 @@ ORDER BY status_id, cathode_number
 
             </section>
             <section class="col-md-4" aria-labelledby="hostingTitle">
-                <h2 id="hostingTitle">Other Stuff</h2>
+                <h2 id="hostingTitle">EB2 Cathode Info </h2>
+                <p>&nbsp;</p>
                
             </section>
         </div>
