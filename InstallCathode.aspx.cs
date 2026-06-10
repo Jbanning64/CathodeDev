@@ -111,6 +111,15 @@ namespace CathodeWeb
                 return;
             }
 
+            //Empty Cathode dropdown check
+            if (ddlCathode.Items.Count == 0)
+            {
+                lblError.Text = "We need a Cathode to continue.";
+                lblError.Visible = true;
+                return;
+            }
+
+
             //Upper Clean Check
             if (ddlUpper.SelectedIndex == 0)
             {
@@ -282,7 +291,7 @@ namespace CathodeWeb
 
             int gunNumber = int.Parse(ddlGuns.SelectedValue.ToString());
 
-            int hvTime = GetHVTime(gunNumber, dateBuilder);
+            int hvTime = GetHVTime(gunNumber, dateBuilder );
 
             txtTimer.Text = hvTime.ToString();  
 
@@ -293,12 +302,25 @@ namespace CathodeWeb
 
         public int GetHVTime(int TheGun, string TheInstallTime)
         {
-            string gunTag = "Gun" + TheGun.ToString() + "Time";
+            string gunTag;
+            string strSQLCommand;
+
+            if (TheGun <= 8)
+            {
+                gunTag = "Gun" + TheGun.ToString() + "Time";
+                strSQLCommand = "SELECT TOP 1 " + gunTag + " FROM EB1HVTimer WHERE HVTimerDate <= '" + TheInstallTime + "' ORDER BY HVTimerDate DESC";
+            }
+            else
+            {
+                int TheEB2Gun = TheGun - 8;
+                gunTag = "Gun" + TheEB2Gun.ToString() + "Time";
+                strSQLCommand = "SELECT TOP 1 CAST(ROUND(" + gunTag + ", 0) AS Int) AS theData FROM EB2HVTimer WHERE HVTimerDate <= '" + TheInstallTime + "' ORDER BY HVTimerDate DESC";
+            }
+                        
                         
             SqlConnection conn = null;
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["CathodeConnString"].ConnectionString);
             conn.Open();
-            string strSQLCommand = "SELECT TOP 1" + gunTag + " FROM EB1HVTimer WHERE HVTimerDate <= '" + TheInstallTime + "' ORDER BY HVTimerDate DESC";
             SqlCommand command = new SqlCommand(strSQLCommand, conn);
             object returnvalue = command.ExecuteScalar();
             conn.Close();

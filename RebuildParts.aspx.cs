@@ -14,7 +14,11 @@ namespace CathodeWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                ddlFurnace.DataBind();
+                ddlCathode.DataBind();
+            }
         }
 
         protected void ddlFurnace_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,7 +103,7 @@ namespace CathodeWeb
                 ddlCathode.DataBind();
                 grdPartList.DataBind();
                 txtCount.Text = string.Empty;
-                txtBadge.Text = string.Empty;
+                //txtBadge.Text = string.Empty;
                 lblError.Visible = false;
 
             }

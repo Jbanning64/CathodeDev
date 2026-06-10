@@ -42,6 +42,24 @@ namespace CathodeWeb
         protected global::System.Web.UI.WebControls.SqlDataSource sqlEB1Other;
 
         /// <summary>
+        /// SqlEB2Guns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlEB2Guns;
+
+        /// <summary>
+        /// sqlEB2NoCathode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource sqlEB2NoCathode;
+
+        /// <summary>
         /// grdEB1Guns control.
         /// </summary>
         /// <remarks>
@@ -67,5 +85,23 @@ namespace CathodeWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdEB1Other;
+
+        /// <summary>
+        /// greEB2Guns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView greEB2Guns;
+
+        /// <summary>
+        /// grdEB2NoCathode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdEB2NoCathode;
     }
 }
