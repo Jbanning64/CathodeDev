@@ -32,6 +32,30 @@ ORDER BY Gun_Number">
             </SelectParameters>
     </asp:SqlDataSource>
 
+
+        <asp:SqlDataSource ID="SqlEB2Est" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT s.cathode_number AS Cathode, 'Gun #' + CAST(e.number AS varchar(1)) AS Gun_Number, i.installtime AS CathodeInstall_Time, 
+CASE e.number
+WHEN 1 THEN (SELECT TOP 1 Gun1Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
+WHEN 2 THEN (SELECT TOP 1 Gun2Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
+WHEN 3 THEN (SELECT TOP 1 Gun3Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
+WHEN 4 THEN (SELECT TOP 1 Gun4Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
+WHEN 5 THEN (SELECT TOP 1 Gun5Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
+END as Usage
+
+FROM  dbo.ebguns AS e LEFT OUTER JOIN
+dbo.vwCathodeStatus AS s ON s.gun_id = e.id   LEFT OUTER JOIN
+dbo.installdata AS i ON i.history_id = s.id LEFT OUTER JOIN
+dbo.users AS u ON u.badge = i.badge_id
+
+WHERE s.furnace = 2
+AND s.status_id =1
+ORDER BY Gun_Number">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="txtEstimate" DefaultValue="0" Name="NextHours" PropertyName="Text" />
+            </SelectParameters>
+    </asp:SqlDataSource>
+
+
            <table style="width: 80%">
                 <tr>
                     <td style="width: 102px">
@@ -45,6 +69,9 @@ ORDER BY Gun_Number">
         </table>
         <br />
         <br />
+<div class="row">
+    <section class="col-md-6" aria-labelledby="EB1Est">
+        <h2 id="EB1Est">EB1 Estimator</h2>
         <asp:GridView ID="grdEB1Guns" runat="server" DataSourceID="SqlHVEst" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5" OnDataBinding="grdEB1Guns_DataBinding">
             <headerstyle backcolor="LightGreen"
                     forecolor="Black"/>
@@ -63,6 +90,30 @@ ORDER BY Gun_Number">
                 <asp:BoundField DataField="Usage" HeaderText="Est Usage" SortExpression="HV Hours" ReadOnly="True" />
             </Columns>
         </asp:GridView>
+    </section>
+     <section class="col-md-6" aria-labelledby="EB2Est">
+        <h2 id="hostingTitle">EB2 Estimator </h2>
+          <asp:GridView ID="grdEB2Est" runat="server" DataSourceID="SqlEB2Est" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5" OnDataBinding="grdEB2Est_DataBinding">
+             <headerstyle backcolor="LightGreen"
+                     forecolor="Black"/>
+    
+             <rowstyle backcolor="LightCyan"  
+                    forecolor="Black"
+                    font-italic="false"/>
+    
+                 <alternatingrowstyle backcolor="PaleTurquoise"  
+                   forecolor="Black"
+                   font-italic="false"/>
+             <Columns>
+                 <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
+                 <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
+                 <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd hh:mm}"/>
+                 <asp:BoundField DataField="Usage" HeaderText="Est Usage" SortExpression="HV Hours" ReadOnly="True" />
+             </Columns>
+         </asp:GridView>
+
+    </section>
+</div>
 
         
     </main>

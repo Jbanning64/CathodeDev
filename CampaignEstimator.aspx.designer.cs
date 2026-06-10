@@ -24,6 +24,15 @@ namespace CathodeWeb
         protected global::System.Web.UI.WebControls.SqlDataSource SqlHVEst;
 
         /// <summary>
+        /// SqlEB2Est control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlEB2Est;
+
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -49,5 +58,14 @@ namespace CathodeWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdEB1Guns;
+
+        /// <summary>
+        /// grdEB2Est control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdEB2Est;
     }
 }

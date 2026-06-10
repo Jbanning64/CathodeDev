@@ -18,5 +18,10 @@ namespace CathodeWeb
         {
 
         }
+
+        protected void grdEB2Est_DataBinding(object sender, EventArgs e)
+        {
+
+        }
     }
 }
