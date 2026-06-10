@@ -64,14 +64,14 @@ namespace CathodeWeb
             //Badge Input Check
             if (!badgetest)
             {
-                lblError.Text = "Please provide a valid Badge number.";
+                lblError.Text = "Please provide a valid Employee number.";
                 lblError.Visible = true;
                 return;
             }
             else
                 if (GetBadgeCount(badge) == 0)
             {
-                lblError.Text = "Badge number does not exist. Confirm the badge number.";
+                lblError.Text = "Employee number does not exist. Confirm the Employee number.";
                 lblError.Visible = true;
                 return;
             }
@@ -140,14 +140,14 @@ namespace CathodeWeb
              //Badge Input Check
             if (!badgetest)
             {
-                lblError.Text = "Please provide a valid Badge number.";
+                lblError.Text = "Please provide a valid Employee number.";
                 lblError.Visible = true;
                 return;
             }
             else
                 if (GetBadgeCount(badge) == 0)
             {
-                lblError.Text = "Badge number does not exist. Confirm the badge number.";
+                lblError.Text = "Employee number does not exist. Confirm the Employee number.";
                 lblError.Visible = true;
                 return;
             }
@@ -167,6 +167,86 @@ namespace CathodeWeb
 
             grdPartList.DataBind(); 
 
+        }
+
+        protected void btnAddDefault_Click(object sender, EventArgs e)
+        {
+            bool badgetest;
+            int badge;
+
+
+            badgetest = int.TryParse(txtBadge.Text.ToString(), out badge);
+
+            //Badge Input Check
+            if (!badgetest)
+            {
+                lblError.Text = "Please provide a valid Employee number.";
+                lblError.Visible = true;
+                return;
+            }
+            else
+                if (GetBadgeCount(badge) == 0)
+            {
+                lblError.Text = "Employee number does not exist. Confirm the Employee number.";
+                lblError.Visible = true;
+                return;
+            }
+
+            try
+            {
+                SqlConnection MyConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CathodeConnString"].ConnectionString);
+                MyConnection.Open();
+                SqlCommand cmd = new SqlCommand("spRebuildParts", MyConnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter TheID = cmd.Parameters.Add("@historyid", SqlDbType.Int);
+                SqlParameter TheBadge = cmd.Parameters.Add("@badge", SqlDbType.Int);
+                SqlParameter ThePart = cmd.Parameters.Add("@partid", SqlDbType.Int);
+                SqlParameter TheCount = cmd.Parameters.Add("@partcount", SqlDbType.Int);
+
+                TheID.Value = ddlCathode.SelectedValue;
+                TheBadge.Value = badge;
+                ThePart.Value = 1;
+                TheCount.Value = 1;
+
+
+                cmd.ExecuteScalar();
+
+                TheID.Value = ddlCathode.SelectedValue;
+                TheBadge.Value = badge;
+                ThePart.Value = 2;
+                TheCount.Value = 1;
+
+
+                cmd.ExecuteScalar();
+
+
+                TheID.Value = ddlCathode.SelectedValue;
+                TheBadge.Value = badge;
+                ThePart.Value = 3;
+                TheCount.Value = 4;
+
+
+                cmd.ExecuteScalar();
+
+                if (null != cmd)
+                    cmd.Dispose();
+                if (null != MyConnection)
+                    MyConnection.Dispose();
+
+                //ddlCathode.DataBind();
+                grdPartList.DataBind();
+                txtCount.Text = string.Empty;
+                //txtBadge.Text = string.Empty;
+                lblError.Visible = false;
+
+            }
+            catch (Exception ex2)
+            {
+                string strMessage = ex2.Message;
+                lblError.Text = strMessage;
+                lblError.Visible = true;
+                return;
+            }
         }
     }
 }

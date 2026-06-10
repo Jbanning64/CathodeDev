@@ -38,6 +38,7 @@ SELECT c.serialnumber as Cathode_Number, 'New Cathode' as value, 0 as status_id
         FROM cathode c
         WHERE c.serialnumber NOT IN (SELECT cathode_number FROM vwCathodeStatus WHERE furnace = 1)
         AND c.furnace = 1
+        AND c.Active = 1
 ORDER BY status_id, cathode_number
 ">
 
@@ -65,11 +66,23 @@ ORDER BY Gun_Number
 FROM vwEBGunNoCathode
 WHERE furnace = 2"></asp:SqlDataSource>
 
+                             <asp:SqlDataSource ID="SqlEB2Other" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT cathode_number, value, status_id
+                        FROM vwCathodeStatus WHERE furnace = 2 AND status_id &lt;&gt; 1 
+UNION
+SELECT c.serialnumber as Cathode_Number, 'New Cathode' as value, 0 as status_id
+        FROM cathode c
+        WHERE c.serialnumber NOT IN (SELECT cathode_number FROM vwCathodeStatus WHERE furnace = 2)
+        AND c.furnace = 2
+        AND c.Active = 1
+ORDER BY status_id, cathode_number
+">
+
+                 </asp:SqlDataSource>  
 
         </section>
 
         <div class="row">
-            <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+            <section class="col-md-3" aria-labelledby="gettingStartedTitle">
                 <h2 id="gettingStartedTitle">EB1 Cathode Info</h2>
                 <br />
                 <h3 id="grdTitle">Cathodes Installed</h3>
@@ -87,7 +100,7 @@ WHERE furnace = 2"></asp:SqlDataSource>
                     <Columns>
                         <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                         <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                        <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd hh:mm}"/>
+                        <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd hh:mm}"/>
                         <asp:BoundField DataField="Usage" HeaderText="Usage" SortExpression="HV Hours" ReadOnly="True" />
                     </Columns>
                 </asp:GridView>
@@ -101,10 +114,10 @@ WHERE furnace = 2"></asp:SqlDataSource>
                 </asp:GridView>
 
             </section>
-            <section class="col-md-4" aria-labelledby="librariesTitle">
-                <h2 id="librariesTitle">EB1 Other Cathodes</h2>
+            <section class="col-md-3" aria-labelledby="librariesTitle">
+                <h2 id="librariesTitle">EB1 In Process</h2>
                 <br />
-            <h3 id="grdTitle4">Unused Cathode Status</h3>
+            <h3 id="grdTitle4">EB1 Unused Status</h3>
                <asp:GridView ID="grdEB1Other" runat="server" DataSourceID="sqlEB1Other" AutoGenerateColumns="False" CellPadding="5" DataKeyNames="status_id" OnRowDataBound="grdEB1Other_RowDataBound">
                    <headerstyle backcolor="Turquoise"
                     forecolor="Black"/>
@@ -115,7 +128,7 @@ WHERE furnace = 2"></asp:SqlDataSource>
                 </asp:GridView>
 
             </section>
-            <section class="col-md-4" aria-labelledby="hostingTitle">
+            <section class="col-md-3" aria-labelledby="hostingTitle">
                 <h2 id="hostingTitle">EB2 Cathode Info </h2>
                 <br />
                  <h3 id="grdTitleEB2-1">Cathodes Installed</h3>
@@ -133,7 +146,7 @@ WHERE furnace = 2"></asp:SqlDataSource>
                          <Columns>
                              <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                              <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                             <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd hh:mm}"/>
+                             <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd hh:mm}"/>
                              <asp:BoundField DataField="Usage" HeaderText="Usage" SortExpression="HV Hours" ReadOnly="True" />
                          </Columns>
                      </asp:GridView>
@@ -147,6 +160,20 @@ WHERE furnace = 2"></asp:SqlDataSource>
                  </asp:GridView>
                
             </section>
+              <section class="col-md-3" aria-labelledby="librariesTitle">
+                  <h2 id="EB2Other">EB2 In Process</h2>
+                  <br />
+              <h3 id="grdEB2Other-1">EB2 Unused Status</h3>
+                 <asp:GridView ID="grdEB2Other" runat="server" DataSourceID="sqlEB2Other" AutoGenerateColumns="False" CellPadding="5" DataKeyNames="status_id" OnRowDataBound="grdEB2Other_RowDataBound">
+                     <headerstyle backcolor="Turquoise"
+                      forecolor="Black"/>
+                     <Columns>
+                         <asp:BoundField DataField="cathode_number" HeaderText="Cathode" SortExpression="cathode_number" />
+                         <asp:BoundField DataField="value" HeaderText="Status" SortExpression="value" />
+                     </Columns>
+                  </asp:GridView>
+    
+        </section>
         </div>
     </main>
 

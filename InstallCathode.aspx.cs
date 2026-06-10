@@ -37,6 +37,7 @@ namespace CathodeWeb
             badgetest = int.TryParse(txtBadge.Text.ToString(), out badge);
             traineetest = int.TryParse(txtTrainee.Text.ToString(), out train);
 
+            /*
             //Campaign Input Check
             if (txtCampaign.Text.Length < 5)
             {
@@ -44,6 +45,7 @@ namespace CathodeWeb
                 lblError.Visible = true;
                 return;
             }
+            */
 
             //Install Time Input Check
             if (txtInstall.Text.Length < 5)
@@ -128,6 +130,7 @@ namespace CathodeWeb
                 return;
             }
 
+            /*
             //Trainee Input Check
             if (txtTrainee.Text.Length > 0)
             {
@@ -145,18 +148,19 @@ namespace CathodeWeb
                     return;
                 }
             }
+            */
 
             //Badge Input Check
             if (!badgetest)
             {
-                lblError.Text = "Please provide a valid Badge number.";
+                lblError.Text = "Please provide a valid Employee number.";
                 lblError.Visible = true;
                 return;
             }
             else
                 if (GetBadgeCount(badge) == 0)
             {
-                lblError.Text = "Badge number does not exist. Confirm the badge number.";
+                lblError.Text = "Employee number does not exist. Confirm the employee number.";
                 lblError.Visible = true;
                 return;
             }
@@ -186,7 +190,7 @@ namespace CathodeWeb
                 TheChamber.Value = int.Parse(ddlUpper.SelectedValue);
                 TheTorque.Value = int.Parse(ddlTorque.SelectedValue);
                 TheInstall.Value = txtInstall.Text; 
-                TheCampaign.Value = txtCampaign.Text;
+                TheCampaign.Value = "N/A";
                 TheRods.Value = int.Parse(ddlRods.SelectedValue);
                 if (txtTrainee.Text.Length > 0)
                 {
@@ -207,7 +211,7 @@ namespace CathodeWeb
                 ddlRods.SelectedIndex = 0;      
                 txtTimer.Text = string.Empty;
                 txtInstall.Text = string.Empty;
-                txtCampaign.Text = string.Empty;    
+                //txtCampaign.Text = string.Empty;    
                 txtBadge.Text = string.Empty;
                 lblError.Visible = false;
 

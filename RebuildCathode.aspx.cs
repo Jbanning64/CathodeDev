@@ -29,7 +29,7 @@ namespace CathodeWeb
         protected void btnRebuild_Click(object sender, EventArgs e)
         {
 
-            bool isotest;
+            //bool isotest;
             bool restest;
             bool filtest;
             bool badgetest;
@@ -39,11 +39,13 @@ namespace CathodeWeb
             int badge;
 
 
-            isotest = int.TryParse(txtISO.Text.ToString(), out iso);
+            //isotest = int.TryParse(txtISO.Text.ToString(), out iso);
+            iso = 0;
             restest = float.TryParse(txtResistance.Text.ToString(), out res);
             filtest = float.TryParse(txtFilament.Text.ToString(), out fil);
             badgetest = int.TryParse(txtBadge.Text.ToString(), out badge);
 
+            /*
             //Finding Input Checks
             if (txtISO.Text.Length > 1 && !isotest)
             {
@@ -57,7 +59,7 @@ namespace CathodeWeb
                 lblError.Visible = true;
                 return;
             }
-
+            */
 
             //Resitance Ohms Input Checks
             if (chkResistance.Checked && !restest)
@@ -109,7 +111,8 @@ namespace CathodeWeb
             //Complete without all data
             if (chkComplete.Checked)
             {
-                if (!isotest || !chkResistance.Checked || !restest || !chkSpacing.Checked || !chkCentered.Checked || !chkTungsten.Checked || !chkFilament.Checked || !filtest)
+                //if (!isotest || !chkResistance.Checked || !restest || !chkSpacing.Checked || !chkCentered.Checked || !chkTungsten.Checked || !chkFilament.Checked || !filtest)
+                if ( !chkResistance.Checked || !restest || !chkSpacing.Checked || !chkCentered.Checked || !chkTungsten.Checked || !chkFilament.Checked || !filtest)
                 {
                     lblError.Text = "Please confirm all required data is input.";
                     lblError.Visible = true;
@@ -131,14 +134,14 @@ namespace CathodeWeb
             //Badge Input Check
             if (!badgetest)
             {
-                lblError.Text = "Please provide a valid Badge number.";
+                lblError.Text = "Please provide a valid Employee number.";
                 lblError.Visible = true;
                 return;
             }
             else
                 if (GetBadgeCount(badge) == 0)
             {
-                lblError.Text = "Badge number does not exist. Confirm the badge number.";
+                lblError.Text = "Employee number does not exist. Confirm the Employee number.";
                 lblError.Visible = true;
                 return;
             }
@@ -158,12 +161,21 @@ namespace CathodeWeb
                 TheCathode.Value = ddlCathode.SelectedItem.Text;
                 TheID.Value = ddlCathode.SelectedValue;
                 TheBadge.Value = badge;
+
+                /*
                 if (isotest && txtISO.Enabled)
                 {
                     SqlParameter TheIso = cmd.Parameters.Add("@iso", SqlDbType.Int);
                     TheIso.Value = iso;
                 }
-                
+                */
+
+                if (txtISO.Enabled)
+                {
+                    SqlParameter TheIso = cmd.Parameters.Add("@iso", SqlDbType.Int);
+                    TheIso.Value = iso;
+                }
+
                 if (chkResistance.Checked && chkResistance.Enabled)
                 {
                     SqlParameter TheResistance = cmd.Parameters.Add("@filamentbase", SqlDbType.Bit);

@@ -114,11 +114,11 @@ ORDER BY GunNumber">
              </tr>
             <tr>
                  <td style="width: 102px">
-                 <asp:Label ID="Label5" runat="server" Text="Campaign"></asp:Label>
+                 <asp:Label ID="Label5" runat="server" Text="Campaign" Visible="False"></asp:Label>
                  </td>
                  <td></td>
                  <td>
-                 <asp:TextBox ID="txtCampaign" runat="server" Width="104px" AutoCompleteType="Disabled" ></asp:TextBox>
+                 <asp:TextBox ID="txtCampaign" runat="server" Width="104px" AutoCompleteType="Disabled" Visible="False" ></asp:TextBox>
                  </td>
              </tr>
                <tr>
@@ -154,6 +154,8 @@ ORDER BY GunNumber">
                     <asp:ListItem Selected="True" Value="99">Select Response</asp:ListItem>
                     <asp:ListItem Value="1">Yes</asp:ListItem>
                     
+                      <asp:ListItem Value="0">No</asp:ListItem>
+                    
                 </asp:DropDownList>
                  </td>
              </tr>
@@ -165,8 +167,7 @@ ORDER BY GunNumber">
              </tr>
                  <tr>
                      <td style="width: 102px">
-                     <asp:Label ID="Label22" runat="server" Text="Gun Rods Checked"></asp:Label>
-                     </td>
+                         Meets VS-RCH-980-030 Standard</td>
                      <td></td>
                      <td>
                      <asp:DropDownList ID="ddlRods" runat="server">
@@ -183,12 +184,12 @@ ORDER BY GunNumber">
              </tr>
             <tr>
                  <td style="width: 102px">
-                 <asp:Label ID="Label10" runat="server" Text="Badge Number"></asp:Label>
+                 <asp:Label ID="Label10" runat="server" Text="Employee Number"></asp:Label>
                  </td>
                  <td></td>
                  <td>
-                 <asp:TextBox ID="txtBadge" runat="server" Width="104px" AutoCompleteType="Disabled" ></asp:TextBox>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<asp:Label ID="Label21" runat="server" Text="Trainee Badge (If applicable)"></asp:Label>
-                 <asp:TextBox ID="txtTrainee" runat="server" Width="104px" AutoCompleteType="Disabled" align="left" ></asp:TextBox>
+                 <asp:TextBox ID="txtBadge" runat="server" Width="104px" AutoCompleteType="Disabled" ></asp:TextBox>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<asp:Label ID="Label21" runat="server" Text="Trainee Badge (If applicable)" Visible="False"></asp:Label>
+                 <asp:TextBox ID="txtTrainee" runat="server" Width="104px" AutoCompleteType="Disabled" align="left" Visible="False" ></asp:TextBox>
                  </td>
              </tr>
         </table>

@@ -104,7 +104,7 @@ ORDER BY COUNT(p.history_id) DESC, c.Cathode_Number
               </tr>
              <tr>
                   <td style="width: 102px">
-                  <asp:Label ID="Label10" runat="server" Text="Badge Number"></asp:Label>
+                  <asp:Label ID="Label10" runat="server" Text="Employee Number"></asp:Label>
                   </td>
                   <td></td>
                   <td>
@@ -113,6 +113,9 @@ ORDER BY COUNT(p.history_id) DESC, c.Cathode_Number
               </tr>
 
         </table>
+         <br />
+        <br />
+        <asp:Button ID="btnAddDefault" runat="server" Text="Add Default Parts" OnClick="btnAddDefault_Click" />
 
           <br />
          <br />

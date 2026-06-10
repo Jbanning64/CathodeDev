@@ -152,11 +152,11 @@
               </tr>
              <tr>
                   <td style="width: 102px">
-                  <asp:Label ID="Label5" runat="server" Text="Iso Chamber"></asp:Label>
+                  <asp:Label ID="Label5" runat="server" Text="Iso Chamber" Visible="False"></asp:Label>
                   </td>
                   <td></td>
                   <td>
-                  <asp:TextBox ID="txtISO" runat="server" Width="104px" AutoCompleteType="Disabled"></asp:TextBox>
+                  <asp:TextBox ID="txtISO" runat="server" Width="104px" AutoCompleteType="Disabled" Visible="False" Enabled="False"></asp:TextBox>
                   </td>
               </tr>
              
@@ -186,7 +186,7 @@
               </tr>
              <tr>
                   <td style="width: 102px">
-                  <asp:Label ID="Label10" runat="server" Text="Badge Number"></asp:Label>
+                  <asp:Label ID="Label10" runat="server" Text="Employee Number"></asp:Label>
                   </td>
                   <td></td>
                   <td>

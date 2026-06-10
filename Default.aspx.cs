@@ -39,5 +39,28 @@ namespace CathodeWeb
 
 
         }
+
+        protected void grdEB2Other_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //Get the value of column from the DataKeys using the RowIndex.
+                int id = Convert.ToInt32(grdEB2Other.DataKeys[e.Row.RowIndex].Values[0]);
+
+                if (id == 2)
+                {
+                    e.Row.BackColor = System.Drawing.Color.LightSalmon;
+                }
+                else if (id == 3)
+                {
+                    e.Row.BackColor = System.Drawing.Color.LightYellow;
+                }
+                else if (id == 4)
+                {
+                    e.Row.BackColor = System.Drawing.Color.LightGreen;
+                }
+
+            }
+        }
     }
 }

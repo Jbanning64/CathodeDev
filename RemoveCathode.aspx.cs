@@ -67,14 +67,14 @@ namespace CathodeWeb
             bool timertest;
             bool hvtimetest;
             bool badgetest;
-            bool uppertest;
+            //bool uppertest;
             bool arctest;
             bool matest;
             bool traineetest;
             int timer;
             int badge;
             int hv;
-            float upper;
+            //float upper;
             float arc;
             float ma;
             int train;
@@ -85,13 +85,13 @@ namespace CathodeWeb
             timertest = int.TryParse(txtTotalHV.Text.ToString(), out timer);
             badgetest = int.TryParse(txtBadge.Text.ToString(), out badge);
             hvtimetest = int.TryParse(txtHVTimer.Text.ToString(), out hv);
-            uppertest = float.TryParse(txtUpper.Text.ToString(),out upper);
+            //uppertest = float.TryParse(txtUpper.Text.ToString(),out upper);
             arctest = float.TryParse(txtArcKV.Text.ToString(), out arc);
             matest = float.TryParse(txtLow.Text.ToString(), out ma);
             traineetest = int.TryParse(txtTrainee.Text.ToString(), out train);
 
 
-
+            /*
             //Campaign Input Check
             if (txtCampaign.Text.Length < 5)
             {
@@ -99,6 +99,7 @@ namespace CathodeWeb
                 lblError.Visible = true;
                 return;
             }
+            */
 
             //Install Time Input Check
             if (txtRemove.Text.Length < 5)
@@ -150,6 +151,7 @@ namespace CathodeWeb
                 return;
             }
 
+            /*
             //Gun Rod Check Check
             if (ddlRods.SelectedIndex == 0)
             {
@@ -157,7 +159,9 @@ namespace CathodeWeb
                 lblError.Visible = true;
                 return;
             }
+            */
 
+            /*
             //Upper Chamber Vac CHeck
             if (!uppertest)
             {
@@ -165,7 +169,7 @@ namespace CathodeWeb
                 lblError.Visible = true;
                 return;
             }
-
+            */
 
             //Set the removal reason
             if (chkTime.Checked)
@@ -262,14 +266,14 @@ namespace CathodeWeb
             {
                 if (!traineetest)
                 {
-                    lblError.Text = "Please provide a valid Badge number for the Trainee.";
+                    lblError.Text = "Please provide a valid Employee number for the Trainee.";
                     lblError.Visible = true;
                     return;
                 }
                 else
                     if (GetBadgeCount(train) == 0)
                 {
-                    lblError.Text = "Badge number does not exist. Confirm the badge number of Trainee.";
+                    lblError.Text = "Employee number does not exist. Confirm the Employee number of Trainee.";
                     lblError.Visible = true;
                     return;
                 }
@@ -278,14 +282,14 @@ namespace CathodeWeb
             //Badge Input Check
             if (!badgetest)
             {
-                lblError.Text = "Please provide a valid Badge number.";
+                lblError.Text = "Please provide a valid Employee number.";
                 lblError.Visible = true;
                 return;
             }
             else
                 if (GetBadgeCount(badge) == 0)
             {
-                lblError.Text = "Badge number does not exist. Confirm the badge number.";
+                lblError.Text = "Employee number does not exist. Confirm the Employee number.";
                 lblError.Visible = true;
                 return;
             }
@@ -320,10 +324,11 @@ namespace CathodeWeb
                 TheTimer.Value = timer;
                 TheHVTimer.Value = hv;
                 TheUs.Value = int.Parse(ddlUs.SelectedValue);
-                TheUpper.Value = upper;
+                TheUpper.Value = 0;
                 TheRemoveTime.Value = txtRemove.Text;
-                TheCampaign.Value = txtCampaign.Text;
-                TheRods.Value = int.Parse(ddlRods.SelectedValue);
+                TheCampaign.Value = "N/A";
+                //TheRods.Value = int.Parse(ddlRods.SelectedValue);
+                TheRods.Value = 0;
                 TheGunId.Value = int.Parse(txtGunID.Text);  
 
                 if (txtTrainee.Text.Length > 0)
@@ -382,7 +387,7 @@ namespace CathodeWeb
                 txtTotalHV.Text = string.Empty;
                 txtHVTimer.Text = string.Empty;
                 txtRemove.Text = string.Empty;
-                txtCampaign.Text = string.Empty;
+                //txtCampaign.Text = string.Empty;
                 chkTime.Checked = false;    
                 chkTemp.Checked = false;    
                 chkNoMA.Checked = false;    

@@ -57,14 +57,14 @@ namespace CathodeWeb
             //Badge Input Check
             if (!badgetest)
             {
-                lblError.Text = "Please provide a valid Badge number.";
+                lblError.Text = "Please provide a valid Employee number.";
                 lblError.Visible = true;
                 return;
             }
             else
                 if (GetBadgeCount(badge) == 0)
             {
-                lblError.Text = "Badge number does not exist. Confirm the badge number.";
+                lblError.Text = "Employee number does not exist. Confirm the Employee number.";
                 lblError.Visible = true;
                 return;
             }
