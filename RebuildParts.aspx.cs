@@ -100,7 +100,7 @@ namespace CathodeWeb
                 if (null != MyConnection)
                     MyConnection.Dispose();
 
-                ddlCathode.DataBind();
+                //ddlCathode.DataBind();
                 grdPartList.DataBind();
                 txtCount.Text = string.Empty;
                 //txtBadge.Text = string.Empty;
