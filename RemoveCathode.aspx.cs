@@ -32,7 +32,7 @@ namespace CathodeWeb
                 txtHVTimer.Text = string.Empty;
                 txtTotalHV.Text = string.Empty;
                 string theID = ddlGuns.SelectedItem.Text;
-                txtGunID.Text = GetGunID(theID).ToString();
+                txtGunID.Text = GetGunID(theID, ddlFurnace.SelectedValue.ToString()).ToString();
             }
             else
             {
@@ -50,7 +50,7 @@ namespace CathodeWeb
             {
                 txtCathode.Text = ddlGuns.SelectedValue.ToString();
                 string theID = ddlGuns.SelectedItem.Text;
-                txtGunID.Text = GetGunID(theID).ToString();
+                txtGunID.Text = GetGunID(theID, ddlFurnace.SelectedValue.ToString()).ToString();
             }
             else
             {
@@ -547,13 +547,13 @@ namespace CathodeWeb
             }
         }
 
-        public int GetGunID(string TheGun)
+        public int GetGunID(string TheGun, string TheFurnace)
         {
 
             SqlConnection conn = null;
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["CathodeConnString"].ConnectionString);
             conn.Open();
-            string strSQLCommand = "SELECT gun_id FROM vwEBCathodesInUse WHERE Gun_Number = '" + TheGun + "'";
+            string strSQLCommand = "SELECT gun_id FROM vwEBCathodesInUse WHERE Gun_Number = '" + TheGun + "' AND Furnace = " + TheFurnace;
             SqlCommand command = new SqlCommand(strSQLCommand, conn);
             object returnvalue = command.ExecuteScalar();
             conn.Close();

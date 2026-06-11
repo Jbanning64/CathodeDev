@@ -108,7 +108,7 @@ ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
                     <Columns>
                         <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                         <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                        <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd HH:MM}"/>
+                        <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd HH:mm}"/>
                         <asp:BoundField DataField="Usage" HeaderText="Usage" SortExpression="HV Hours" ReadOnly="True" />
                     </Columns>
                 </asp:GridView>
@@ -156,7 +156,7 @@ ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
                          <Columns>
                              <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                              <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                             <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd HH:MM}"/>
+                             <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd HH:mm}"/>
                              <asp:BoundField DataField="Usage" HeaderText="Usage" SortExpression="HV Hours" ReadOnly="True" />
                          </Columns>
                      </asp:GridView>

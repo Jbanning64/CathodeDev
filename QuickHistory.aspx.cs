@@ -16,6 +16,10 @@ namespace CathodeWeb
 
         protected void ddlFurnace_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlGun.DataBind();
+            ddlCathode.DataBind();  
+            grdEBHistory.DataBind();
+            grdCathodeHistory.DataBind();
 
         }
 
