@@ -476,9 +476,10 @@ namespace CathodeWeb
                 }
             }
 
-            
 
-            int hvTime = GetHVTime(ddlGuns.SelectedItem.ToString(), dateBuilder);
+            int FurnaceValue = int.Parse(ddlFurnace.SelectedValue);
+
+            int hvTime = GetHVTime(ddlGuns.SelectedItem.ToString(), dateBuilder, FurnaceValue);
             int hvInstall = GetHVInstall(int.Parse(txtCathode.Text));
 
 
@@ -490,15 +491,25 @@ namespace CathodeWeb
             lblError.Visible = false;
         }
 
-        public int GetHVTime(string TheGun, string TheRemoveTime)
+        public int GetHVTime(string TheGun, string TheRemoveTime, int TheFurnace)
         {
             string gunTag = "Gun" + TheGun.Substring(TheGun.Length -1) + "Time";
+
+            string strSQLCommand;
+
 
             SqlConnection conn = null;
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["CathodeConnString"].ConnectionString);
             conn.Open();
-            string strSQLCommand = "SELECT TOP 1" + gunTag + " FROM EB1HVTimer WHERE HVTimerDate <= '" + TheRemoveTime + "' ORDER BY HVTimerDate DESC";
-            SqlCommand command = new SqlCommand(strSQLCommand, conn);
+            if (TheFurnace == 1)
+            {
+                strSQLCommand = "SELECT TOP 1 " + gunTag + " FROM EB1HVTimer WHERE HVTimerDate <= '" + TheRemoveTime + "' ORDER BY HVTimerDate DESC";
+            }
+            else
+            {
+                strSQLCommand = "SELECT TOP 1 CAST(ROUND(" + gunTag + ", 0) AS int) FROM EB2HVTimer WHERE HVTimerDate <= '" + TheRemoveTime + "' ORDER BY HVTimerDate DESC";
+            }
+                SqlCommand command = new SqlCommand(strSQLCommand, conn);
             object returnvalue = command.ExecuteScalar();
             conn.Close();
 
