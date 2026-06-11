@@ -296,8 +296,21 @@ WHERE furnace = @FurnaceID ORDER BY Gun_Number">
         <br />
         <asp:Button ID="btnRemove" runat="server" Text="Remove Cathode" OnClick="btnRemove_Click" />
         <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="False"></asp:Label>
-        <br />
-        <br />
+        <input type="hidden" id="clientDate" runat="server" />
+       <br />
+       <br />
+
+      <script>
+          document.addEventListener("DOMContentLoaded", function () {
+              const today = new Date();
+              const yyyy = today.getFullYear();
+              const mm = String(today.getMonth() + 1).padStart(2, '0');
+              const dd = String(today.getDate()).padStart(2, '0');
+
+              // Writes "YYYY-MM-DD" in the user's local timezone
+              document.getElementById("<%= clientDate.ClientID %>").value = `${yyyy}-${mm}-${dd}`;
+          });
+    </script>
 
     </main>
 

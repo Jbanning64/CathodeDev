@@ -256,21 +256,7 @@ namespace CathodeWeb
             bool full_Match = Regex.IsMatch(txtInstall.Text, regpatternfull, RegexOptions.IgnoreCase);
 
             string dateBuilder = String.Empty;
-
-            if (txtInstall.Text.Length == 5)
-            {
-                if (!hhmm_Match)
-                {
-                    lblError.Text = "Please check your time input.  It should be 24H format with leading zeros.";
-                    lblError.Visible = true;
-                    return;
-                }
-                else
-                {
-                    dateBuilder = DateTime.Today.ToString("yyyy-MM-dd") + " " + txtInstall.Text;
-                }
-            }
-
+            
             if (txtInstall.Text.Length > 5)
             {
                 if (!full_Match)
@@ -292,6 +278,23 @@ namespace CathodeWeb
                 return;
             }
 
+            if (txtInstall.Text.Length == 5)
+            {
+                if (!hhmm_Match)
+                {
+                    lblError.Text = "Please check your time input.  It should be 24H format with leading zeros.";
+                    lblError.Visible = true;
+                    return;
+                }
+                else
+                {
+                    //dateBuilder = DateTime.Today.ToString("yyyy-MM-dd") + " " + txtInstall.Text;
+                    string theDate = clientDate.Value;  // "yyyy-MM-dd"
+                    dateBuilder = theDate + " " + txtInstall.Text;
+                    txtInstall.Text = dateBuilder;
+
+                }
+            }
 
             int gunNumber = int.Parse(ddlGuns.SelectedValue.ToString());
 

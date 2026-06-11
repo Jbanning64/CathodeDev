@@ -448,20 +448,6 @@ namespace CathodeWeb
             string dateBuilder = String.Empty;
 
 
-            if (txtRemove.Text.Length == 5)
-            {
-                if (!hhmm_Match)
-                {
-                    lblError.Text = "Please check your time input.  It should be 24H format with leading zeros.";
-                    lblError.Visible = true;
-                    return;
-                }
-                else
-                {
-                    dateBuilder = DateTime.Today.ToString("yyyy-MM-dd") + " " + txtRemove.Text;
-                }
-            }
-
             if (txtRemove.Text.Length > 5)
             {
                 if (!full_Match)
@@ -473,6 +459,23 @@ namespace CathodeWeb
                 else
                 {
                     dateBuilder = txtRemove.Text;
+                }
+            }
+
+            if (txtRemove.Text.Length == 5)
+            {
+                if (!hhmm_Match)
+                {
+                    lblError.Text = "Please check your time input.  It should be 24H format with leading zeros.";
+                    lblError.Visible = true;
+                    return;
+                }
+                else
+                {
+                    //dateBuilder = DateTime.Today.ToString("yyyy-MM-dd") + " " + txtRemove.Text;
+                    string theDate = clientDate.Value;  // "yyyy-MM-dd"
+                    dateBuilder = theDate + " " + txtRemove.Text;
+                    txtRemove.Text = dateBuilder;
                 }
             }
 
