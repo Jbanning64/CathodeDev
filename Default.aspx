@@ -90,10 +90,10 @@ ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
 
         <div class="row">
             <section class="col-md-3" aria-labelledby="gettingStartedTitle">
-                <h2 id="gettingStartedTitle">EB1 Cathode Info</h2>
+                <h2 id="gettingStartedTitle">EB1 Gun Info</h2>
                 <asp:Label ID="lblEB1Time" runat="server" Text="Last EB1 Gun Time Update"></asp:Label>
                 <br />
-                <h3 id="grdTitle">Cathodes Installed</h3>
+                <!-- <h3 id="grdTitle">Cathodes Installed</h3> -->
                 <asp:GridView ID="grdEB1Guns" runat="server" DataSourceID="SqlEB1Guns" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5">
                     <headerstyle backcolor="LightGreen"
                             forecolor="Black"/>
@@ -126,7 +126,7 @@ ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
                 <h2 id="librariesTitle">EB1 In Process</h2>
                 <asp:TextBox ID="txtEB1Time" runat="server" BorderStyle="None" ReadOnly="True"></asp:TextBox>
                 <br />
-            <h3 id="grdTitle4">EB1 Unused Status</h3>
+            <!-- <h3 id="grdTitle4">EB1 Unused Status</h3> -->
                <asp:GridView ID="grdEB1Other" runat="server" DataSourceID="sqlEB1Other" AutoGenerateColumns="False" CellPadding="5" DataKeyNames="status_id" OnRowDataBound="grdEB1Other_RowDataBound">
                    <headerstyle backcolor="Turquoise"
                     forecolor="Black"/>
@@ -138,10 +138,10 @@ ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
 
             </section>
             <section class="col-md-3" aria-labelledby="hostingTitle">
-                <h2 id="hostingTitle">EB2 Cathode Info </h2>
+                <h2 id="hostingTitle">EB2 Gun Info </h2>
                 <asp:Label ID="lblEB2Time" runat="server" Text="Last EB2 Gun Time Update"></asp:Label>
                 <br />
-                 <h3 id="grdTitleEB2-1">Cathodes Installed</h3>
+                 <!-- <h3 id="grdTitleEB2-1">Cathodes Installed</h3> -->
                      <asp:GridView ID="greEB2Guns" runat="server" DataSourceID="SqlEB2Guns" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5">
                          <headerstyle backcolor="LightGreen"
                                  forecolor="Black"/>
@@ -174,7 +174,7 @@ ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
                   <h2 id="EB2Other">EB2 In Process</h2>
                    <asp:TextBox ID="txtEB2Time" runat="server" BorderStyle="None" ReadOnly="True"></asp:TextBox>
                   <br />
-              <h3 id="grdEB2Other-1">EB2 Unused Status</h3>
+              <!-- <h3 id="grdEB2Other-1">EB2 Unused Status</h3> -->
                  <asp:GridView ID="grdEB2Other" runat="server" DataSourceID="sqlEB2Other" AutoGenerateColumns="False" CellPadding="5" DataKeyNames="status_id" OnRowDataBound="grdEB2Other_RowDataBound">
                      <headerstyle backcolor="Turquoise"
                       forecolor="Black"/>
