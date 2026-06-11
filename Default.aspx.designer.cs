@@ -69,6 +69,33 @@ namespace CathodeWeb
         protected global::System.Web.UI.WebControls.SqlDataSource SqlEB2Other;
 
         /// <summary>
+        /// SqlEB1Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlEB1Update;
+
+        /// <summary>
+        /// SqlEB2Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlEB2Update;
+
+        /// <summary>
+        /// lblEB1Time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEB1Time;
+
+        /// <summary>
         /// grdEB1Guns control.
         /// </summary>
         /// <remarks>
@@ -87,6 +114,15 @@ namespace CathodeWeb
         protected global::System.Web.UI.WebControls.GridView grdEB1NoCathode;
 
         /// <summary>
+        /// txtEB1Time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEB1Time;
+
+        /// <summary>
         /// grdEB1Other control.
         /// </summary>
         /// <remarks>
@@ -94,6 +130,15 @@ namespace CathodeWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdEB1Other;
+
+        /// <summary>
+        /// lblEB2Time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEB2Time;
 
         /// <summary>
         /// greEB2Guns control.
@@ -112,6 +157,15 @@ namespace CathodeWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdEB2NoCathode;
+
+        /// <summary>
+        /// txtEB2Time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEB2Time;
 
         /// <summary>
         /// grdEB2Other control.

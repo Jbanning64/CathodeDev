@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CathodeWeb._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
+     <meta http-equiv="refresh" content="600" />
     <main>
         <section class="row" aria-labelledby="aspnetTitle">
             <h1 id="aspnetTitle">Cathode Status</h1>
-            <p class="lead">Some blah blah blah</p>
+            <p class="lead">ATI Richland Digital Cathode Tracking Brought To You By Jeff Banning</p>
             
                 <asp:SqlDataSource ID="SqlEB1Guns" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT s.cathode_number AS Cathode, 'Gun #' + CAST(e.number AS varchar(1)) AS Gun_Number, i.installtime AS CathodeInstall_Time, 
 CASE e.number
@@ -78,12 +78,20 @@ ORDER BY status_id, cathode_number
 ">
 
                  </asp:SqlDataSource>  
+                 <asp:SqlDataSource ID="SqlEB1Update" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT Top 1 HVTimerDate
+FROM EB1HVTimer
+ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
+                             <asp:SqlDataSource ID="SqlEB2Update" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT Top 1 HVTimerDate
+FROM EB2HVTimer
+ORDER BY HVTimerDate DESC"></asp:SqlDataSource>
+
 
         </section>
 
         <div class="row">
             <section class="col-md-3" aria-labelledby="gettingStartedTitle">
                 <h2 id="gettingStartedTitle">EB1 Cathode Info</h2>
+                <asp:Label ID="lblEB1Time" runat="server" Text="Last EB1 Gun Time Update"></asp:Label>
                 <br />
                 <h3 id="grdTitle">Cathodes Installed</h3>
                 <asp:GridView ID="grdEB1Guns" runat="server" DataSourceID="SqlEB1Guns" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5">
@@ -100,7 +108,7 @@ ORDER BY status_id, cathode_number
                     <Columns>
                         <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                         <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                        <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd hh:mm}"/>
+                        <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd HH:MM}"/>
                         <asp:BoundField DataField="Usage" HeaderText="Usage" SortExpression="HV Hours" ReadOnly="True" />
                     </Columns>
                 </asp:GridView>
@@ -116,6 +124,7 @@ ORDER BY status_id, cathode_number
             </section>
             <section class="col-md-3" aria-labelledby="librariesTitle">
                 <h2 id="librariesTitle">EB1 In Process</h2>
+                <asp:TextBox ID="txtEB1Time" runat="server" BorderStyle="None" ReadOnly="True"></asp:TextBox>
                 <br />
             <h3 id="grdTitle4">EB1 Unused Status</h3>
                <asp:GridView ID="grdEB1Other" runat="server" DataSourceID="sqlEB1Other" AutoGenerateColumns="False" CellPadding="5" DataKeyNames="status_id" OnRowDataBound="grdEB1Other_RowDataBound">
@@ -130,6 +139,7 @@ ORDER BY status_id, cathode_number
             </section>
             <section class="col-md-3" aria-labelledby="hostingTitle">
                 <h2 id="hostingTitle">EB2 Cathode Info </h2>
+                <asp:Label ID="lblEB2Time" runat="server" Text="Last EB2 Gun Time Update"></asp:Label>
                 <br />
                  <h3 id="grdTitleEB2-1">Cathodes Installed</h3>
                      <asp:GridView ID="greEB2Guns" runat="server" DataSourceID="SqlEB2Guns" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5">
@@ -146,7 +156,7 @@ ORDER BY status_id, cathode_number
                          <Columns>
                              <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                              <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                             <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd hh:mm}"/>
+                             <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:MMM-dd HH:MM}"/>
                              <asp:BoundField DataField="Usage" HeaderText="Usage" SortExpression="HV Hours" ReadOnly="True" />
                          </Columns>
                      </asp:GridView>
@@ -162,6 +172,7 @@ ORDER BY status_id, cathode_number
             </section>
               <section class="col-md-3" aria-labelledby="librariesTitle">
                   <h2 id="EB2Other">EB2 In Process</h2>
+                   <asp:TextBox ID="txtEB2Time" runat="server" BorderStyle="None" ReadOnly="True"></asp:TextBox>
                   <br />
               <h3 id="grdEB2Other-1">EB2 Unused Status</h3>
                  <asp:GridView ID="grdEB2Other" runat="server" DataSourceID="sqlEB2Other" AutoGenerateColumns="False" CellPadding="5" DataKeyNames="status_id" OnRowDataBound="grdEB2Other_RowDataBound">

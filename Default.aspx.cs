@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,6 +13,31 @@ namespace CathodeWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LoadEBTimes();
+        }
+
+        private void LoadEBTimes()
+        {
+            DataView dv = (DataView)SqlEB1Update.Select(DataSourceSelectArguments.Empty);
+            DataView dv2 = (DataView)SqlEB2Update.Select(DataSourceSelectArguments.Empty);
+
+            if (dv.Count > 0)
+            {
+                txtEB1Time.Text = dv[0]["HVTimerDate"].ToString();
+            }
+            else
+            {
+                txtEB1Time.Text = "No Data";
+            }
+
+            if (dv2.Count > 0)
+            {
+                txtEB2Time.Text = dv2[0]["HVTimerDate"].ToString();
+            }
+            else
+            {
+                txtEB2Time.Text = "No Data";
+            }
 
         }
 
