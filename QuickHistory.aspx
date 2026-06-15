@@ -11,20 +11,21 @@
                     <asp:ControlParameter ControlID="ddlFurnace" DefaultValue="1" Name="furnaceid" PropertyName="SelectedValue" />
                 </SelectParameters>
                 </asp:SqlDataSource>
-                <asp:SqlDataSource ID="SqlGunHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number, 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
-                        FROM history h
-                        INNER JOIN installdata i
-                        ON i.history_id = h.id
-                        LEFT OUTER JOIN removaldata1 r
-                        ON r.history_id = (SELECT TOP 1 ID FROM history where id &gt; h.id AND gun_id = h.gun_id ORDER BY id asc)
-                        INNER JOIN ebguns e
-                        ON e.id = h.gun_id
-                        LEFT OUTER JOIN removalinfo ri
-                        ON ri.id = r.removalinfo_id
-                        WHERE h.gun_id = @gunid
-                        ORDER BY GunNumber, h.id">
+                             <asp:SqlDataSource ID="SqlGunHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number , 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
+         FROM history h
+         INNER JOIN installdata i
+         ON i.history_id = h.id
+         LEFT OUTER JOIN removaldata1 r
+         ON r.history_id = (SELECT TOP 1 ID FROM history where id &gt; h.id AND gun_id = h.gun_id ORDER BY id asc)
+         INNER JOIN ebguns e
+         ON e.id = h.gun_id
+         LEFT OUTER JOIN removalinfo ri
+         ON ri.id = r.removalinfo_id
+         WHERE h.gun_id = @gunid
+         AND (e.furnace &lt;&gt; 1 OR h.created_at &gt; '2026-06-14 00:00')
+         ORDER BY GunNumber, h.id">
                     <SelectParameters>
-                        <asp:ControlParameter ControlID="ddlGun" DefaultValue="1" Name="gunid" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="ddlGun" DefaultValue="5" Name="gunid" PropertyName="SelectedValue" />
                     </SelectParameters>
                 </asp:SqlDataSource>
              <asp:SqlDataSource ID="SqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT serialnumber as Cathode
@@ -45,6 +46,7 @@ ON e.id = h.gun_id
 LEFT OUTER JOIN removalinfo ri
 ON ri.id = r.removalinfo_id
 WHERE h.cathode_number = @cathode
+AND (e.furnace &lt;&gt; 1 OR h.created_at &gt; '2026-06-14 00:00')
 ORDER BY cathode_number, h.id">
                  <SelectParameters>
                      <asp:ControlParameter ControlID="ddlCathode" DefaultValue="1000" Name="cathode" PropertyName="SelectedValue" />

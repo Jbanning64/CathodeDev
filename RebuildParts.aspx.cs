@@ -14,6 +14,9 @@ namespace CathodeWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            this.Form.DefaultButton = btnAddPart.UniqueID;
+            
             if (!IsPostBack)
             {
                 ddlFurnace.DataBind();
