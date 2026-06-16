@@ -80,6 +80,8 @@ namespace CathodeWeb
             int train;
 
             int removal_id = 0;
+            int removal_id2 = 0;
+            int removal_id3 = 0;
             int checkcounter = 0;
 
             timertest = int.TryParse(txtTotalHV.Text.ToString(), out timer);
@@ -180,14 +182,36 @@ namespace CathodeWeb
 
             if (chkNoMA.Checked)
             {
-                removal_id = 1002;
-                checkcounter++;
+                if (checkcounter == 0)
+                {
+                    removal_id = 1002;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 1002;
+                    checkcounter++;
+                }
             }
 
             if (chkArc.Checked)
             {
-                removal_id = 3;
-                checkcounter++;
+
+                if (checkcounter == 0)
+                {
+                    removal_id = 3;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 3;
+                    checkcounter++;
+                }
+                else if (checkcounter == 2)
+                {
+                    removal_id3 = 3;
+                    checkcounter++;
+                }
 
                 if (!arctest)
                 {
@@ -199,26 +223,94 @@ namespace CathodeWeb
 
             if (chkTemp.Checked)
             {
-                removal_id = 4;
-                checkcounter++;
+                if (checkcounter == 0)
+                {
+                    removal_id = 4;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 4;
+                    checkcounter++;
+                }
+                else if (checkcounter == 2)
+                {
+                    removal_id3 = 4;
+                    checkcounter++;
+                }
+                else if (checkcounter >= 3)
+                {
+                    checkcounter++;
+                }
             }
 
             if (chkUf.Checked)
             {
-                removal_id = 5;
-                checkcounter++;
+                if (checkcounter == 0)
+                {
+                    removal_id = 5;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 5;
+                    checkcounter++;
+                }
+                else if (checkcounter == 2)
+                {
+                    removal_id3 = 5;
+                    checkcounter++;
+                }
+                else if (checkcounter >= 3)
+                {
+                    checkcounter++;
+                }
             }
 
             if (chkAlign.Checked)
             {
-                removal_id = 6;
-                checkcounter++;
+                if (checkcounter == 0)
+                {
+                    removal_id = 6;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 6;
+                    checkcounter++;
+                }
+                else if (checkcounter == 2)
+                {
+                    removal_id3 = 6;
+                    checkcounter++;
+                }
+                else if (checkcounter >= 3)
+                {
+                    checkcounter++;
+                }
             }
 
             if (chkOther.Checked)
             {
-                removal_id = 7;
-                checkcounter++;
+                if (checkcounter == 0)
+                {
+                    removal_id = 7;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 7;
+                    checkcounter++;
+                }
+                else if (checkcounter == 2)
+                {
+                    removal_id3 = 7;
+                    checkcounter++;
+                }
+                else if (checkcounter >= 3)
+                {
+                    checkcounter++;
+                }
 
                 if (txtOther.Text.Length < 5)
                 {
@@ -230,8 +322,25 @@ namespace CathodeWeb
 
             if (chkLow.Checked)
             {
-                removal_id = 2;
-                checkcounter++;
+                if (checkcounter == 0)
+                {
+                    removal_id = 2;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 2;
+                    checkcounter++;
+                }
+                else if (checkcounter == 2)
+                {
+                    removal_id3 = 2;
+                    checkcounter++;
+                }
+                else if (checkcounter >= 3)
+                {
+                    checkcounter++;
+                }
 
                 if (!matest)
                 {
@@ -243,13 +352,30 @@ namespace CathodeWeb
 
             if (chkUnstable.Checked)
             {
-                removal_id = 1003;
-                checkcounter++;
+                if (checkcounter == 0)
+                {
+                    removal_id = 1003;
+                    checkcounter++;
+                }
+                else if (checkcounter == 1)
+                {
+                    removal_id2 = 1003;
+                    checkcounter++;
+                }
+                else if (checkcounter == 2)
+                {
+                    removal_id3 = 1003;
+                    checkcounter++;
+                }
+                else if (checkcounter >= 3)
+                {
+                    checkcounter++;
+                }
             }
 
-            if (checkcounter > 1)
+            if (checkcounter > 3)
             {
-                lblError.Text = "Please only check one removal reason.";
+                lblError.Text = "Please only check up to three removal reasons.";
                 lblError.Visible = true;
                 return;
             }
@@ -309,6 +435,8 @@ namespace CathodeWeb
                 SqlParameter TheUs = cmd.Parameters.Add("@us", SqlDbType.Bit);
                 SqlParameter TheUpper = cmd.Parameters.Add("@uppervac", SqlDbType.Real);
                 SqlParameter TheRemoval = cmd.Parameters.Add("@removaltype", SqlDbType.Int);
+                SqlParameter TheRemoval2 = cmd.Parameters.Add("@removaltype2", SqlDbType.Int);
+                SqlParameter TheRemoval3 = cmd.Parameters.Add("@removaltype3", SqlDbType.Int);
                 SqlParameter TheRemoveTime = cmd.Parameters.Add("@removaltime", SqlDbType.NVarChar, 20);
                 SqlParameter TheArc = cmd.Parameters.Add("@arcing", SqlDbType.Real);
                 SqlParameter TheOther = cmd.Parameters.Add("@otherinfo", SqlDbType.NVarChar, 4000);
@@ -372,7 +500,77 @@ namespace CathodeWeb
 
                 }
 
-                
+                switch (removal_id2)
+                {
+                    case 1:
+                        TheRemoval2.Value = removal_id2;
+                        break;
+                    case 2:
+                        TheRemoval2.Value = removal_id2;
+                        TheLow.Value = ma;
+                        break;
+                    case 3:
+                        TheRemoval2.Value = removal_id2;
+                        TheArc.Value = arc;
+                        break;
+                    case 4:
+                        TheRemoval2.Value = removal_id2;
+                        break;
+                    case 5:
+                        TheRemoval2.Value = removal_id2;
+                        break;
+                    case 6:
+                        TheRemoval2.Value = removal_id2;
+                        break;
+                    case 7:
+                        TheRemoval2.Value = removal_id2;
+                        TheOther.Value = txtOther.Text;
+                        break;
+                    case 1002:
+                        TheRemoval2.Value = removal_id2;
+                        break;
+                    case 1003:
+                        TheRemoval2.Value = removal_id2;
+                        break;
+
+                }
+
+                switch (removal_id3)
+                {
+                    case 1:
+                        TheRemoval3.Value = removal_id3;
+                        break;
+                    case 2:
+                        TheRemoval3.Value = removal_id3;
+                        TheLow.Value = ma;
+                        break;
+                    case 3:
+                        TheRemoval3.Value = removal_id3;
+                        TheArc.Value = arc;
+                        break;
+                    case 4:
+                        TheRemoval3.Value = removal_id3;
+                        break;
+                    case 5:
+                        TheRemoval3.Value = removal_id3;
+                        break;
+                    case 6:
+                        TheRemoval3.Value = removal_id3;
+                        break;
+                    case 7:
+                        TheRemoval3.Value = removal_id3;
+                        TheOther.Value = txtOther.Text;
+                        break;
+                    case 1002:
+                        TheRemoval3.Value = removal_id3;
+                        break;
+                    case 1003:
+                        TheRemoval3.Value = removal_id3;
+                        break;
+
+                }
+
+
                 cmd.ExecuteScalar();
 
                 if (null != cmd)

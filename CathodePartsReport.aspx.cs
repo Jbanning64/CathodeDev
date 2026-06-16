@@ -22,6 +22,42 @@ namespace CathodeWeb
             DateTime start = DateTime.Parse(txtStart.Text);
             DateTime end = DateTime.Parse(txtEnd.Text);
 
+            RunReport(start, end);
+        }
+
+        protected void btnThisMonth_Click(object sender, EventArgs e)
+        {
+            DateTime now = DateTime.Now;
+
+            DateTime start = new DateTime(now.Year, now.Month, 1);
+            DateTime end = start.AddMonths(1);
+
+            txtStart.Text = start.ToString("yyyy-MM-dd");
+            txtEnd.Text = end.ToString("yyyy-MM-dd");
+
+            RunReport(start, end);
+        }
+
+        protected void btnLastMonth_Click(object sender, EventArgs e)
+        {
+            DateTime now = DateTime.Now;
+
+            DateTime start = new DateTime(now.Year, now.Month, 1).AddMonths(-1);
+            DateTime end = new DateTime(now.Year, now.Month, 1);
+
+            txtStart.Text = start.ToString("yyyy-MM-dd");
+            txtEnd.Text = end.ToString("yyyy-MM-dd");
+
+            RunReport(start, end);
+        }
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RunReport(DateTime start, DateTime end)
+        {
             string sql = @"
                 SELECT 
                     CASE
@@ -37,30 +73,29 @@ namespace CathodeWeb
                             SUM(ph.partcount)
                     END AS PartTotals
                 FROM parthistory ph
-                INNER JOIN parts p
-                    ON p.id = ph.parts_id
+                INNER JOIN parts p ON p.id = ph.parts_id
                 WHERE ph.created_at >= @start
-                AND ph.created_at < @end
+                  AND ph.created_at < @end
                 GROUP BY p.description
                 ORDER BY p.description;
             ";
 
-            using (SqlConnection conn = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["CathodeConnString"].ConnectionString))
-            using (SqlCommand cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.AddWithValue("@start", start);
-                cmd.Parameters.AddWithValue("@end", end);
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["CathodeConnString"].ConnectionString))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@start", start);
+                    cmd.Parameters.AddWithValue("@end", end);
 
-                conn.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
+                    conn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
 
-                DataTable dt = new DataTable();
-                dt.Load(rdr);
+                    DataTable dt = new DataTable();
+                    dt.Load(rdr);
 
-                gvParts.DataSource = dt;
-                gvParts.DataBind();
+                    gvParts.DataSource = dt;
+                    gvParts.DataBind();
             }
         }
+
     }
 }

@@ -69,7 +69,7 @@
               </tr>
              <tr>
                   <td style="width: 400px">
-                  <asp:Label ID="Label4" runat="server" Text="Resistance is greater than 6Mohms between the filament and the solid cathode base plate." ></asp:Label>
+                  <asp:Label ID="Label4" runat="server" width="480px" Text="Resistance is greater than 6Mohms between the filament and the solid cathode base plate." ></asp:Label>
                   </td>
                   <td></td>
                   <td>
