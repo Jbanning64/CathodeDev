@@ -433,5 +433,49 @@ namespace CathodeWeb
             conn.Close();
             return returnvalue;
         }
+
+        
+        protected void btnPrintCathode_Click(object sender, EventArgs e)
+        {
+            string gun = "";
+            string hvtime = "";
+            string cathode = ddlCathode.SelectedItem.ToString();
+
+            string sql = "SELECT 'EB' + CAST(c.furnace AS varchar(1)) +  ' Gun #' + CAST(e.number as varchar(1)) AS GunNumber, r1.totalhours " +
+                "FROM vwCathodeStatus h " +
+                "INNER JOIN removaldata1 r1 " +
+                "ON r1.history_id = h.id " +
+                "INNER JOIN cathode c " +
+                "ON c.serialnumber = h.cathode_number " +
+                "INNER JOIN ebguns e " +
+                "ON e.id = h.gun_id " +
+                "WHERE h.cathode_number = " + cathode + " " +
+                "AND (h.status_id = 2 OR h.status_id = 3)";
+
+
+            SqlConnection conn = null;
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["CathodeConnString"].ConnectionString);
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                conn.Open();
+                SqlDataReader r = cmd.ExecuteReader();
+
+                if (r.Read())
+                {
+                    gun = r["GunNumber"].ToString();
+                    hvtime = r["totalhours"].ToString();
+                }
+            }
+
+            conn.Close();
+
+            string url = $"CathodeTraveler.aspx?cathode={cathode}&gun={gun}&hvtime={hvtime}";
+
+            Response.Redirect(url);
+            //Response.Redirect("CathodeTraveler.aspx?cathode=900&gun=5&hvtime=4500");
+        }
+
+
+
     }
 }

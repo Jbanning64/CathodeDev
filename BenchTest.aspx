@@ -46,6 +46,10 @@
                 <td>
                     <asp:DropDownList ID="ddlCathode" runat="server" Width="150px" DataSourceID="sqlCathode" DataTextField="Cathode_Number" DataValueField="Cathode_Number"></asp:DropDownList>
                 </td>
+                 <td style="text-align:right; width:100%;">
+                    <asp:Button ID="btnPrintCathode" runat="server" Text="Print Traveler" 
+                        OnClick="btnPrintCathode_Click" />
+                </td>
             </tr>
             <tr>
                 <td style="width: 102px">
