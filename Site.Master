@@ -54,6 +54,7 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/AddCathode">Add Cathode</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/CampaignEstimator">Next Campaign HV Est</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/QuickHistory">Quick History</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/CathodePartsReport">Part Report</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
                        
                     </ul>
