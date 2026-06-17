@@ -11,7 +11,29 @@
                     <asp:ControlParameter ControlID="ddlFurnace" DefaultValue="1" Name="furnaceid" PropertyName="SelectedValue" />
                 </SelectParameters>
                 </asp:SqlDataSource>
-                             <asp:SqlDataSource ID="SqlGunHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number , 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
+                             <asp:SqlDataSource ID="SqlGunHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number , 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, --ri.description
+	
+-- Manual concatenation of up to 3 descriptions
+    LTRIM(
+        RTRIM(
+            COALESCE(ri.description, '') +
+            CASE WHEN ri2.description IS NOT NULL 
+                 THEN ', ' + ri2.description ELSE '' END +
+            CASE WHEN ri3.description IS NOT NULL 
+                 THEN ', ' + ri3.description ELSE '' END +
+			-- If *any* removalinfo_id = 7, append otherinfo
+			CASE WHEN 7 IN (r.removalinfo_id, r.removalinfo_id2, r.removalinfo_id3)
+				 THEN CASE 
+					WHEN (COALESCE(ri.description,'') 
+						  + COALESCE(', ' + ri2.description,'') 
+						  + COALESCE(', ' + ri3.description,'')) = ''
+					THEN r.otherinfo          -- no descriptions yet
+					ELSE ', ' + r.otherinfo   -- append to existing
+				  END
+				ELSE ''
+			END
+        )
+    ) AS description
          FROM history h
          INNER JOIN installdata i
          ON i.history_id = h.id
@@ -21,11 +43,13 @@
          ON e.id = h.gun_id
          LEFT OUTER JOIN removalinfo ri
          ON ri.id = r.removalinfo_id
+		 LEFT OUTER JOIN removalinfo ri2 ON ri2.id = r.removalinfo_id2
+		 LEFT OUTER JOIN removalinfo ri3 ON ri3.id = r.removalinfo_id3
          WHERE h.gun_id = @gunid
          AND (e.furnace &lt;&gt; 1 OR h.created_at &gt; '2026-06-14 00:00')
          ORDER BY GunNumber, h.id">
                     <SelectParameters>
-                        <asp:ControlParameter ControlID="ddlGun" DefaultValue="5" Name="gunid" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="ddlGun" DefaultValue="1" Name="gunid" PropertyName="SelectedValue" />
                     </SelectParameters>
                 </asp:SqlDataSource>
              <asp:SqlDataSource ID="SqlCathode" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT serialnumber as Cathode
@@ -35,7 +59,28 @@
                      <asp:ControlParameter ControlID="ddlFurnace" DefaultValue="1" Name="furnaceid" PropertyName="SelectedValue" />
                  </SelectParameters>
                  </asp:SqlDataSource>
-             <asp:SqlDataSource ID="SqlCathodeHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number, 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, ri.description
+             <asp:SqlDataSource ID="SqlCathodeHistory" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT h.cathode_number, 'Gun #' + CAST(e.number as varchar(1)) as GunNumber, i.installtime, i.volttimer as HVTimer_Install, r.removaltime, r.hvtimer as HVTimer_Remove, r.totalhours, --ri.description
+-- Manual concatenation of up to 3 descriptions
+    LTRIM(
+        RTRIM(
+            COALESCE(ri.description, '') +
+            CASE WHEN ri2.description IS NOT NULL 
+                 THEN ', ' + ri2.description ELSE '' END +
+            CASE WHEN ri3.description IS NOT NULL 
+                 THEN ', ' + ri3.description ELSE '' END +
+			-- If *any* removalinfo_id = 7, append otherinfo
+			CASE WHEN 7 IN (r.removalinfo_id, r.removalinfo_id2, r.removalinfo_id3)
+				 THEN CASE 
+					WHEN (COALESCE(ri.description,'') 
+						  + COALESCE(', ' + ri2.description,'') 
+						  + COALESCE(', ' + ri3.description,'')) = ''
+					THEN r.otherinfo          -- no descriptions yet
+					ELSE ', ' + r.otherinfo   -- append to existing
+				  END
+				ELSE ''
+			END
+        )
+    ) AS description
 FROM history h
 INNER JOIN installdata i
 ON i.history_id = h.id
@@ -43,13 +88,14 @@ LEFT OUTER JOIN removaldata1 r
 ON r.history_id = (SELECT TOP 1 ID FROM history where id &gt; h.id AND cathode_number = h.cathode_number ORDER BY id asc)
 INNER JOIN ebguns e
 ON e.id = h.gun_id
-LEFT OUTER JOIN removalinfo ri
-ON ri.id = r.removalinfo_id
-WHERE h.cathode_number = @cathode
+LEFT OUTER JOIN removalinfo ri ON ri.id = r.removalinfo_id
+LEFT OUTER JOIN removalinfo ri2 ON ri2.id = r.removalinfo_id2
+LEFT OUTER JOIN removalinfo ri3 ON ri3.id = r.removalinfo_id3
+WHERE h.cathode_number = @cathode 
 AND (e.furnace &lt;&gt; 1 OR h.created_at &gt; '2026-06-14 00:00')
 ORDER BY cathode_number, h.id">
                  <SelectParameters>
-                     <asp:ControlParameter ControlID="ddlCathode" DefaultValue="1000" Name="cathode" PropertyName="SelectedValue" />
+                     <asp:ControlParameter ControlID="ddlCathode" DefaultValue="1269" Name="cathode" PropertyName="SelectedValue" />
                  </SelectParameters>
              </asp:SqlDataSource>
             
