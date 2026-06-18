@@ -34,13 +34,13 @@ ORDER BY Gun_Number">
 
 
         <asp:SqlDataSource ID="SqlEB2Est" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT s.cathode_number AS Cathode, 'Gun #' + CAST(e.number AS varchar(1)) AS Gun_Number, i.installtime AS CathodeInstall_Time, 
-CASE e.number
+CAST(ROUND(CASE e.number
 WHEN 1 THEN (SELECT TOP 1 Gun1Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 2 THEN (SELECT TOP 1 Gun2Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 3 THEN (SELECT TOP 1 Gun3Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 4 THEN (SELECT TOP 1 Gun4Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 5 THEN (SELECT TOP 1 Gun5Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
-END as Usage
+END, 0 ) AS INT) AS Usage
 
 FROM  dbo.ebguns AS e LEFT OUTER JOIN
 dbo.vwCathodeStatus AS s ON s.gun_id = e.id   LEFT OUTER JOIN
@@ -86,7 +86,7 @@ ORDER BY Gun_Number">
             <Columns>
                 <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                 <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd hh:mm}"/>
+                <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd HH:mm}"/>
                 <asp:BoundField DataField="Usage" HeaderText="Est Usage" SortExpression="HV Hours" ReadOnly="True" />
             </Columns>
         </asp:GridView>
@@ -107,7 +107,7 @@ ORDER BY Gun_Number">
              <Columns>
                  <asp:BoundField DataField="Cathode" HeaderText="Cathode" SortExpression="Cathode" />
                  <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
-                 <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd hh:mm}"/>
+                 <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd HH:mm}"/>
                  <asp:BoundField DataField="Usage" HeaderText="Est Usage" SortExpression="HV Hours" ReadOnly="True" />
              </Columns>
          </asp:GridView>

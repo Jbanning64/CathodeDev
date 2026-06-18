@@ -33,7 +33,7 @@
 				ELSE ''
 			END
         )
-    ) AS description
+    ) AS description, u.username AS InstalledBy, u2.username AS RemovedBy
          FROM history h
          INNER JOIN installdata i
          ON i.history_id = h.id
@@ -41,6 +41,10 @@
          ON r.history_id = (SELECT TOP 1 ID FROM history where id &gt; h.id AND gun_id = h.gun_id ORDER BY id asc)
          INNER JOIN ebguns e
          ON e.id = h.gun_id
+         LEFT OUTER JOIN users u
+         ON u.badge = i.badge_id
+         LEFT OUTER JOIN users u2
+         ON u2.badge = r.badge_id
          LEFT OUTER JOIN removalinfo ri
          ON ri.id = r.removalinfo_id
 		 LEFT OUTER JOIN removalinfo ri2 ON ri2.id = r.removalinfo_id2
@@ -80,7 +84,7 @@
 				ELSE ''
 			END
         )
-    ) AS description
+    ) AS description, u.username AS InstalledBy, u2.username AS RemovedBy
 FROM history h
 INNER JOIN installdata i
 ON i.history_id = h.id
@@ -88,6 +92,10 @@ LEFT OUTER JOIN removaldata1 r
 ON r.history_id = (SELECT TOP 1 ID FROM history where id &gt; h.id AND cathode_number = h.cathode_number ORDER BY id asc)
 INNER JOIN ebguns e
 ON e.id = h.gun_id
+LEFT OUTER JOIN users u
+ON u.badge = i.badge_id
+LEFT OUTER JOIN users u2
+ON u2.badge = r.badge_id
 LEFT OUTER JOIN removalinfo ri ON ri.id = r.removalinfo_id
 LEFT OUTER JOIN removalinfo ri2 ON ri2.id = r.removalinfo_id2
 LEFT OUTER JOIN removalinfo ri3 ON ri3.id = r.removalinfo_id3
@@ -131,16 +139,18 @@ ORDER BY cathode_number, h.id">
                 <br />
                 <br />
                 <h3 id="grdTitle">EB Gun - Cathode History</h3>
-                <asp:GridView ID="grdEBHistory" runat="server" DataSourceID="SqlGunHistory" AutoGenerateColumns="False" CellPadding="5" CellSpacing="5">
+                <asp:GridView ID="grdEBHistory" runat="server" DataSourceID="SqlGunHistory" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5">
                     <Columns>
-                        <asp:BoundField DataField="cathode_number" HeaderText="Cathode" SortExpression="cathode_number"><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="GunNumber" HeaderText="Gun" ReadOnly="True" SortExpression="GunNumber" > <ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="installtime" HeaderText="Installed" SortExpression="installtime" DataFormatString="{0:yyyy-MM-dd hh:mm}" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="HVTimer_Install" HeaderText="HV at Install" SortExpression="HVTimer_Install" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="removaltime" HeaderText="Removed" SortExpression="removaltime" DataFormatString="{0:yyyy-MM-dd hh:mm}" > <ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="HVTimer_Remove" HeaderText="HV at Remove" SortExpression="HVTimer_Remove" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="totalhours" HeaderText="Total HV" SortExpression="totalhours" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="description" HeaderText="Removal Reason" SortExpression="description" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="cathode_number" HeaderText="Cathode" HeaderStyle-Wrap="false" SortExpression="cathode_number"><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="GunNumber" HeaderText="Gun" HeaderStyle-Wrap="false" ReadOnly="True" SortExpression="GunNumber" > <ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="installtime" HeaderText="Installed" HeaderStyle-Wrap="false" SortExpression="installtime" DataFormatString="{0:yyyy-MM-dd HH:mm}" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="HVTimer_Install" HeaderText="HV at Install" HeaderStyle-Wrap="false" SortExpression="HVTimer_Install" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="InstalledBy" HeaderText="Installer" HeaderStyle-Wrap="false" ReadOnly="True" SortExpression="InstalledBy" > <ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="removaltime" HeaderText="Removed" HeaderStyle-Wrap="false" SortExpression="removaltime" DataFormatString="{0:yyyy-MM-dd HH:mm}" > <ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="HVTimer_Remove" HeaderText="HV at Remove" HeaderStyle-Wrap="false" SortExpression="HVTimer_Remove" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="totalhours" HeaderText="Total HV" HeaderStyle-Wrap="false" SortExpression="totalhours" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="description" HeaderText="Removal Reason" HeaderStyle-Wrap="false" SortExpression="description" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="RemovedBy" HeaderText="Remover" ReadOnly="True" HeaderStyle-Wrap="false" SortExpression="RemovedBy" > <ItemStyle Wrap="False" /></asp:BoundField>
                     </Columns>
                     <headerstyle backcolor="LightGreen"
                             forecolor="Black"/>
@@ -166,16 +176,18 @@ ORDER BY cathode_number, h.id">
                 <br />
                 <br />
             <h3 id="grdTitle4">Cathode - EB Gun History</h3>
-               <asp:GridView ID="grdCathodeHistory" runat="server" DataSourceID="SqlCathodeHistory" AutoGenerateColumns="False" CellPadding="5">
+               <asp:GridView ID="grdCathodeHistory" runat="server" DataSourceID="SqlCathodeHistory" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5">
                    <Columns>
-                       <asp:BoundField DataField="cathode_number" HeaderText="Cathode" SortExpression="cathode_number"><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="GunNumber" HeaderText="Gun" ReadOnly="True" SortExpression="GunNumber" > <ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="installtime" HeaderText="Installed" SortExpression="installtime" DataFormatString="{0:yyyy-MM-dd hh:mm}" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="HVTimer_Install" HeaderText="HV at Install" SortExpression="HVTimer_Install" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="removaltime" HeaderText="Removed" SortExpression="removaltime" DataFormatString="{0:yyyy-MM-dd hh:mm}" > <ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="HVTimer_Remove" HeaderText="HV at Remove" SortExpression="HVTimer_Remove" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="totalhours" HeaderText="Total HV" SortExpression="totalhours" ><ItemStyle Wrap="False" /></asp:BoundField>
-                        <asp:BoundField DataField="description" HeaderText="Removal Reason" SortExpression="description" ><ItemStyle Wrap="False" /></asp:BoundField>
+                       <asp:BoundField DataField="cathode_number" HeaderText="Cathode" HeaderStyle-Wrap="false" SortExpression="cathode_number"><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="GunNumber" HeaderText="Gun" ReadOnly="True" HeaderStyle-Wrap="false" SortExpression="GunNumber" > <ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="installtime" HeaderText="Installed" HeaderStyle-Wrap="false" SortExpression="installtime" DataFormatString="{0:yyyy-MM-dd HH:mm}" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="HVTimer_Install" HeaderText="HV at Install" HeaderStyle-Wrap="false" SortExpression="HVTimer_Install" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="InstalledBy" HeaderText="Installer" HeaderStyle-Wrap="false" ReadOnly="True" SortExpression="InstalledBy" > <ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="removaltime" HeaderText="Removed" HeaderStyle-Wrap="false" SortExpression="removaltime" DataFormatString="{0:yyyy-MM-dd HH:mm}" > <ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="HVTimer_Remove" HeaderText="HV at Remove" HeaderStyle-Wrap="false" SortExpression="HVTimer_Remove" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="totalhours" HeaderText="Total HV" HeaderStyle-Wrap="false" SortExpression="totalhours" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="description" HeaderText="Removal Reason" HeaderStyle-Wrap="false" SortExpression="description" ><ItemStyle Wrap="False" /></asp:BoundField>
+                        <asp:BoundField DataField="RemovedBy" HeaderText="Remover" ReadOnly="True" HeaderStyle-Wrap="false" SortExpression="RemovedBy" > <ItemStyle Wrap="False" /></asp:BoundField>
                    </Columns>
                    <headerstyle backcolor="Turquoise"
                     forecolor="Black"/>

@@ -183,7 +183,7 @@ WHERE furnace = @FurnaceID ORDER BY Gun_Number">
              <tr>
                  <td style="width: 102px">
                  <asp:Label ID="Label10" runat="server" Text="Reason Pulled:"></asp:Label>
-                 </td>
+                 &nbsp;Select Up to 3</td>
              </tr>
                <tr>
                 <td style="width: 102px">
