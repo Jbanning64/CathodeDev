@@ -46,11 +46,11 @@
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/InstallCathode">Install Cathode</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/RemoveCathode">Remove Cathode</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/InstallCathode">Install Cathode</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/BenchTest">Bench Test</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/RebuildCathode">Rebuild Cathode</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/RebuildParts">Rebuild Parts</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/RebuildCathode">Rebuild Cathode</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/AddCathode">Add Cathode</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/CampaignEstimator">Next Campaign HV Est</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/QuickHistory">Quick History</a></li>
