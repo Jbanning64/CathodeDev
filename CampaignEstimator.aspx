@@ -17,7 +17,18 @@ WHEN 5 THEN (SELECT TOP 1 Gun5Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) - 
 WHEN 6 THEN (SELECT TOP 1 Gun6Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 7 THEN (SELECT TOP 1 Gun7Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 8 THEN (SELECT TOP 1 Gun8Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
-END as Usage
+END as Usage,
+i.volttimer AS HVInstallTimer,
+CASE e.number
+WHEN 1 THEN (SELECT TOP 1 Gun1Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 2 THEN (SELECT TOP 1 Gun2Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 3 THEN (SELECT TOP 1 Gun3Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 4 THEN (SELECT TOP 1 Gun4Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 5 THEN (SELECT TOP 1 Gun5Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 6 THEN (SELECT TOP 1 Gun6Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 7 THEN (SELECT TOP 1 Gun7Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 8 THEN (SELECT TOP 1 Gun8Time FROM EB1HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+END as HVCurrentTimer
 
 FROM  dbo.ebguns AS e LEFT OUTER JOIN
 dbo.vwCathodeStatus AS s ON s.gun_id = e.id   LEFT OUTER JOIN
@@ -40,7 +51,15 @@ WHEN 2 THEN (SELECT TOP 1 Gun2Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - 
 WHEN 3 THEN (SELECT TOP 1 Gun3Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 4 THEN (SELECT TOP 1 Gun4Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
 WHEN 5 THEN (SELECT TOP 1 Gun5Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) - i.volttimer + @NextHours
-END, 0 ) AS INT) AS Usage
+END, 0 ) AS INT) AS Usage,
+i.volttimer AS HVInstallTimer,
+CAST(ROUND(CASE e.number
+WHEN 1 THEN (SELECT TOP 1 Gun1Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 2 THEN (SELECT TOP 1 Gun2Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 3 THEN (SELECT TOP 1 Gun3Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 4 THEN (SELECT TOP 1 Gun4Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+WHEN 5 THEN (SELECT TOP 1 Gun5Time FROM EB2HVTIMER ORDER BY HVTimerDate DESC) + @NextHours
+END, 0 ) AS INT) AS HVCurrentTimer
 
 FROM  dbo.ebguns AS e LEFT OUTER JOIN
 dbo.vwCathodeStatus AS s ON s.gun_id = e.id   LEFT OUTER JOIN
@@ -88,6 +107,8 @@ ORDER BY Gun_Number">
                 <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
                 <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd HH:mm}"/>
                 <asp:BoundField DataField="Usage" HeaderText="Est Usage" SortExpression="HV Hours" ReadOnly="True" />
+                <asp:BoundField DataField="HVInstallTimer" HeaderText="HV Ins Hours" SortExpression="HV Hours" ReadOnly="True" />
+                <asp:BoundField DataField="HVCurrentTimer" HeaderText="HV Cur Hours" SortExpression="HV Hours" ReadOnly="True" />
             </Columns>
         </asp:GridView>
     </section>
@@ -109,6 +130,8 @@ ORDER BY Gun_Number">
                  <asp:BoundField DataField="Gun_Number" HeaderText="Gun" ReadOnly="True" SortExpression="Gun_Number" />
                  <asp:BoundField DataField="CathodeInstall_Time" HeaderText="Install Date" SortExpression="CathodeInstall_Time" DataFormatString="{0:yyyy-MM-dd HH:mm}"/>
                  <asp:BoundField DataField="Usage" HeaderText="Est Usage" SortExpression="HV Hours" ReadOnly="True" />
+                 <asp:BoundField DataField="HVInstallTimer" HeaderText="HV Ins Hours" SortExpression="HV Hours" ReadOnly="True" />
+                 <asp:BoundField DataField="HVCurrentTimer" HeaderText="HV Cur Hours" SortExpression="HV Hours" ReadOnly="True" />
              </Columns>
          </asp:GridView>
 
