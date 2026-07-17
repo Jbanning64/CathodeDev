@@ -51,7 +51,7 @@
 		 LEFT OUTER JOIN removalinfo ri3 ON ri3.id = r.removalinfo_id3
          WHERE h.gun_id = @gunid
          AND (e.furnace &lt;&gt; 1 OR h.created_at &gt; '2026-06-14 00:00')
-         ORDER BY GunNumber, h.id">
+         ORDER BY GunNumber, h.id desc">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ddlGun" DefaultValue="1" Name="gunid" PropertyName="SelectedValue" />
                     </SelectParameters>
@@ -101,7 +101,7 @@ LEFT OUTER JOIN removalinfo ri2 ON ri2.id = r.removalinfo_id2
 LEFT OUTER JOIN removalinfo ri3 ON ri3.id = r.removalinfo_id3
 WHERE h.cathode_number = @cathode 
 AND (e.furnace &lt;&gt; 1 OR h.created_at &gt; '2026-06-14 00:00')
-ORDER BY cathode_number, h.id">
+ORDER BY cathode_number, h.id desc">
                  <SelectParameters>
                      <asp:ControlParameter ControlID="ddlCathode" DefaultValue="1269" Name="cathode" PropertyName="SelectedValue" />
                  </SelectParameters>
