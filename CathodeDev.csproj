@@ -221,6 +221,7 @@
     <Content Include="AddCathode.aspx" />
     <Content Include="BenchTest.aspx" />
     <Content Include="CampaignEstimator.aspx" />
+    <Content Include="CathodeHistory.aspx" />
     <Content Include="CathodePartsReport.aspx" />
     <Content Include="CathodeTraveler.aspx" />
     <Content Include="Contact.aspx" />
@@ -342,6 +343,13 @@
     </Compile>
     <Compile Include="CampaignEstimator.aspx.designer.cs">
       <DependentUpon>CampaignEstimator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CathodeHistory.aspx.cs">
+      <DependentUpon>CathodeHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CathodeHistory.aspx.designer.cs">
+      <DependentUpon>CathodeHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="CathodePartsReport.aspx.cs">
       <DependentUpon>CathodePartsReport.aspx</DependentUpon>

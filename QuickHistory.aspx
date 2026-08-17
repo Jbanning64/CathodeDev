@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <main>
         <section class="row" aria-labelledby="pageTitle">
-            <h1 id="pageTitle">Cathode/Gun History</h1>
+            <h1 id="pageTitle">Gun History</h1>
                 <asp:SqlDataSource ID="SqlGuns" runat="server" ProviderName="<%$ ConnectionStrings:CathodeConnString.ProviderName %>" ConnectionString="<%$ ConnectionStrings:CathodeConnString %>" SelectCommand="SELECT id, 'Gun #' + CAST(number as varchar(2)) as GunNumber
                             FROM ebguns
                             WHERE furnace = @furnaceid">
@@ -122,24 +122,27 @@ ORDER BY cathode_number, h.id desc">
                       </asp:DropDownList>
                   </td>
               </tr>
-              <tr>
-                 <td style="width: 102px">
-                 </td>
-                 <td></td>
-                 <td></td>
-             </tr>
+              <!-- This adds space -->
+             <tr><td colspan="3" style="height:20px;"></td></tr>
+             <tr>
+                    <td style="width: 150px">
+                        <asp:Label ID="Label4" runat="server" Text="Select Cathode"></asp:Label>
+                    </td>
+                    <td></td>
+                    <td>
+                         <asp:DropDownList ID="ddlGun" runat="server" Width="150px" DataSourceID="SqlGuns" DataTextField="GunNumber" DataValueField="id" OnSelectedIndexChanged="ddlGun_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                    </td>
+                </tr>
+                 <!-- This adds space -->
+                 <tr><td colspan="3" style="height:20px;"></td></tr>
 
            </table>
         <div class="row">
             <section class="col-md-8" aria-labelledby="gettingStartedTitle">
                 
-                <br />
-                <asp:Label ID="Label2" runat="server" Text="Select Gun" Width="150px"></asp:Label>
-                <asp:DropDownList ID="ddlGun" runat="server" Width="150px" DataSourceID="SqlGuns" DataTextField="GunNumber" DataValueField="id" OnSelectedIndexChanged="ddlGun_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
-                <br />
-                <br />
+               
                 <h3 id="grdTitle">EB Gun - Cathode History</h3>
-                <asp:GridView ID="grdEBHistory" runat="server" DataSourceID="SqlGunHistory" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5">
+                <asp:GridView ID="grdEBHistory" runat="server" DataSourceID="SqlGunHistory" AutoGenerateColumns="False" CellPadding="10" CellSpacing="5"  AllowPaging="true" PageSize="15">
                     <Columns>
                         <asp:BoundField DataField="cathode_number" HeaderText="Cathode" HeaderStyle-Wrap="false" SortExpression="cathode_number"><ItemStyle Wrap="False" /></asp:BoundField>
                         <asp:BoundField DataField="GunNumber" HeaderText="Gun" HeaderStyle-Wrap="false" ReadOnly="True" SortExpression="GunNumber" > <ItemStyle Wrap="False" /></asp:BoundField>
@@ -167,6 +170,7 @@ ORDER BY cathode_number, h.id desc">
             </section>
             <br />
             <br />
+            <!--  Dropping Cathode History
             <section class="col-md-8" aria-labelledby="librariesTitle">
                 
                 <br />
@@ -194,6 +198,7 @@ ORDER BY cathode_number, h.id desc">
                 </asp:GridView>
 
             </section>
+            -->
            
         </div>
     </main>
