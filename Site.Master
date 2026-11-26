@@ -56,6 +56,7 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/QuickHistory">Gun History</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/CathodeHistory">Cathode History</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/CathodePartsReport">Part Report</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/CorrectInstall">Correct Install</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
                        
                     </ul>
